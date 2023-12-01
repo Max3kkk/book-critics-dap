@@ -108,7 +108,6 @@ def test_user(test_db) -> models.User:
     user = models.User(
         email="fake@email.com",
         hashed_password=get_password_hash(),
-        is_active=True,
     )
     test_db.add(user)
     test_db.commit()

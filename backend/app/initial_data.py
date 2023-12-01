@@ -14,7 +14,6 @@ def init() -> None:
         UserCreate(
             email="admin@book-app.com",
             password="password",
-            is_active=True,
             is_superuser=True,
         ),
     )

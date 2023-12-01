@@ -8,7 +8,6 @@ def test_get_users(client, test_superuser, superuser_token_headers):
         {
             "id": test_superuser.id,
             "email": test_superuser.email,
-            "is_active": test_superuser.is_active,
             "is_superuser": test_superuser.is_superuser,
         }
     ]
@@ -53,7 +52,6 @@ def test_edit_user(client, test_superuser, superuser_token_headers):
 def test_edit_user_not_found(client, test_db, superuser_token_headers):
     new_user = {
         "email": "newemail@email.com",
-        "is_active": False,
         "is_superuser": False,
         "password": "new_password",
     }
@@ -75,7 +73,6 @@ def test_get_user(
     assert response.json() == {
         "id": test_user.id,
         "email": test_user.email,
-        "is_active": bool(test_user.is_active),
         "is_superuser": test_user.is_superuser,
     }
 

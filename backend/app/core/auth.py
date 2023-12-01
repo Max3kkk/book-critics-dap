@@ -35,8 +35,6 @@ async def get_current_user(
 async def get_current_active_user(
     current_user: models.User = Depends(get_current_user),
 ):
-    if not current_user.is_active:
-        raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
 
@@ -68,7 +66,6 @@ def sign_up_new_user(db, email: str, password: str):
         schemas.UserCreate(
             email=email,
             password=password,
-            is_active=True,
             is_superuser=False,
         ),
     )
