@@ -1,19 +1,17 @@
+import uvicorn
 from fastapi import FastAPI, Depends
 from starlette.requests import Request
-import uvicorn
 
-from app.api.api_v1.routers.users import users_router
 from app.api.api_v1.routers.auth import auth_router
+from app.api.api_v1.routers.authors import author_router
+from app.api.api_v1.routers.books import book_router
+from app.api.api_v1.routers.users import users_router
 from app.core import config
-from app.db.session import SessionLocal
 from app.core.auth import get_current_active_user
 from app.core.celery_app import celery_app
-from app import tasks
+from app.db.session import SessionLocal
 
-
-app = FastAPI(
-    title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api"
-)
+app = FastAPI(title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api")
 
 
 @app.middleware("http")
@@ -41,6 +39,18 @@ app.include_router(
     users_router,
     prefix="/api/v1",
     tags=["users"],
+    dependencies=[Depends(get_current_active_user)],
+)
+app.include_router(
+    author_router,
+    prefix="/api/v1/authors",
+    tags=["authors"],
+    dependencies=[Depends(get_current_active_user)],
+)
+app.include_router(
+    book_router,
+    prefix="/api/v1/books",
+    tags=["authors"],
     dependencies=[Depends(get_current_active_user)],
 )
 app.include_router(auth_router, prefix="/api", tags=["auth"])

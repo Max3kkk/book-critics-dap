@@ -1,9 +1,20 @@
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import (
+    Column,
+    ForeignKey,
+    Integer,
+    String,
+    Boolean,
+    PrimaryKeyConstraint,
+    Text,
+)
+from sqlalchemy.orm import relationship
 
 from .session import Base
-from sqlalchemy import Column, ForeignKey, Integer, String
-from sqlalchemy import PrimaryKeyConstraint
-from sqlalchemy.orm import relationship
+
+
+def cascade_relationship(*args, **kwargs):
+    kwargs.setdefault("cascade", "all, delete")
+    return relationship(*args, **kwargs)
 
 
 class User(Base):
@@ -16,7 +27,7 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     is_superuser = Column(Boolean, default=False)
 
-    reviews = relationship("Review", back_populates="user_created")
+    reviews = cascade_relationship("Review", back_populates="user_created")
 
 
 class Author(Base):
@@ -25,7 +36,7 @@ class Author(Base):
     id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String, nullable=False)
 
-    books = relationship("Book", back_populates="author")
+    books = cascade_relationship("Book", back_populates="author")
 
 
 class Book(Base):
@@ -33,26 +44,26 @@ class Book(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
-    description = Column(String, nullable=False)
+    description = Column(Text, nullable=False)
     image_url = Column(String, nullable=False)
     author_id = Column(Integer, ForeignKey("author.id"))
 
     author = relationship("Author", back_populates="books")
-    reviews = relationship("Review", back_populates="book")
+    reviews = cascade_relationship("Review", back_populates="book")
 
 
 class Review(Base):
     __tablename__ = "review"
 
     id = Column(Integer, primary_key=True, index=True)
-    text = Column(String, nullable=False)
+    text = Column(Text, nullable=False)
     user_created_id = Column(Integer, ForeignKey("user.id"))
     book_id = Column(Integer, ForeignKey("book.id"))
 
     book = relationship("Book", back_populates="reviews")
     user_created = relationship("User", back_populates="reviews")
-    likes = relationship("Like", back_populates="review")
-    dislikes = relationship("Dislike", back_populates="review")
+    likes = cascade_relationship("Like", back_populates="review")
+    dislikes = cascade_relationship("Dislike", back_populates="review")
 
 
 class Like(Base):

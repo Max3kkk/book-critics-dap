@@ -31,7 +31,6 @@ def test_delete_user_not_found(client, superuser_token_headers):
 def test_edit_user(client, test_superuser, superuser_token_headers):
     new_user = {
         "email": "newemail@email.com",
-        "is_active": False,
         "is_superuser": True,
         "first_name": "Joe",
         "last_name": "Smith",
