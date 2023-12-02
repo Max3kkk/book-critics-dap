@@ -1,0 +1,23 @@
+[0;1;32m●[0m docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Fri 2023-12-01 17:21:02 UTC; 3min 52s ago
+TriggeredBy: [0;1;32m●[0m docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 32881 (dockerd)
+      Tasks: 25
+     Memory: 30.7M
+     CGroup: /system.slice/docker.service
+             ├─32881 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+             ├─33032 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 5432 -container-ip 172.18.0.2 -container-port 5432
+             └─33038 /usr/bin/docker-proxy -proto tcp -host-ip :: -host-port 5432 -container-ip 172.18.0.2 -container-port 5432
+
+Dec 01 17:21:02 blockchain-final dockerd[32881]: time="2023-12-01T17:21:02.116581438Z" level=info msg="Loading containers: start."
+Dec 01 17:21:02 blockchain-final dockerd[32881]: time="2023-12-01T17:21:02.229787257Z" level=info msg="Default bridge (docker0) is assigned with an IP address 172.17.0.0/16. Daemon option --bip can be used to set a preferred IP address"
+Dec 01 17:21:02 blockchain-final dockerd[32881]: time="2023-12-01T17:21:02.280432242Z" level=info msg="No non-localhost DNS nameservers are left in resolv.conf. Using default external servers: [nameserver 8.8.8.8 nameserver 8.8.4.4]"
+Dec 01 17:21:02 blockchain-final dockerd[32881]: time="2023-12-01T17:21:02.280461910Z" level=info msg="IPv6 enabled; Adding default IPv6 external servers: [nameserver 2001:4860:4860::8888 nameserver 2001:4860:4860::8844]"
+Dec 01 17:21:02 blockchain-final dockerd[32881]: time="2023-12-01T17:21:02.499294932Z" level=info msg="Loading containers: done."
+Dec 01 17:21:02 blockchain-final dockerd[32881]: time="2023-12-01T17:21:02.573356318Z" level=warning msg="WARNING: No swap limit support"
+Dec 01 17:21:02 blockchain-final dockerd[32881]: time="2023-12-01T17:21:02.573401524Z" level=info msg="Docker daemon" commit="24.0.5-0ubuntu1~20.04.1" graphdriver=overlay2 version=24.0.5
+Dec 01 17:21:02 blockchain-final dockerd[32881]: time="2023-12-01T17:21:02.573438288Z" level=info msg="Daemon has completed initialization"
+Dec 01 17:21:02 blockchain-final dockerd[32881]: time="2023-12-01T17:21:02.594558153Z" level=info msg="API listen on /run/docker.sock"
+Dec 01 17:21:02 blockchain-final systemd[1]: Started Docker Application Container Engine.
