@@ -31,7 +31,7 @@ module.exports = {
     jest: true,
     es6: true,
   },
-  plugins: ['react', 'react-hooks', 'jsx-a11y'],
+  plugins: ['react', 'react-hooks', 'jsx-a11y', 'prettier'],
   settings: {
     ecmascript: 6,
     jsx: true,

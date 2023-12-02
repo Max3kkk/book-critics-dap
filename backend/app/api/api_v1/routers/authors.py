@@ -27,7 +27,6 @@ async def authors_list(
     """
     Get all authors
     """
-    print("get all authors")
     authors = get_authors(db)
     response.headers["Content-Range"] = f"0-9/{len(authors)}"
     return authors

@@ -2,6 +2,9 @@ import uvicorn
 from fastapi import FastAPI, Depends
 from starlette.requests import Request
 
+from api.api_v1.routers.dislike import dislike_router
+from api.api_v1.routers.likes import like_router
+from api.api_v1.routers.reviews import review_router
 from app.api.api_v1.routers.auth import auth_router
 from app.api.api_v1.routers.authors import author_router
 from app.api.api_v1.routers.books import book_router
@@ -50,7 +53,25 @@ app.include_router(
 app.include_router(
     book_router,
     prefix="/api/v1/books",
-    tags=["authors"],
+    tags=["books"],
+    dependencies=[Depends(get_current_active_user)],
+)
+app.include_router(
+    review_router,
+    prefix="/api/v1/reviews",
+    tags=["reviews"],
+    dependencies=[Depends(get_current_active_user)],
+)
+app.include_router(
+    like_router,
+    prefix="/api/v1/likes",
+    tags=["likes"],
+    dependencies=[Depends(get_current_active_user)],
+)
+app.include_router(
+    dislike_router,
+    prefix="/api/v1/dislikes",
+    tags=["dislikes"],
     dependencies=[Depends(get_current_active_user)],
 )
 app.include_router(auth_router, prefix="/api", tags=["auth"])
