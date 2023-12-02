@@ -1,9 +1,12 @@
+import typing as t
+from datetime import datetime, timedelta
+
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
-import typing as t
 
 from app.db import models, schemas
+from db.models import User, Book
 
 
 def get_book(db: Session, book_id: int):
@@ -13,7 +16,46 @@ def get_book(db: Session, book_id: int):
     return book
 
 
-def get_books(db: Session, skip: int = 0, limit: int = 100) -> t.List[schemas.BookOut]:
+def get_detailed_book(db: Session, book_id: int, user: User) -> schemas.BookDetailed:
+    book = db.query(models.Book).filter(models.Book.id == book_id).first()
+    if not book:
+        raise HTTPException(status_code=404, detail="Book not found")
+
+    # Calculate the time left for the review
+    end_time = book.created_at + timedelta(hours=book.review_hour_amount)
+    time_left = end_time - datetime.now()
+
+    hours_left = time_left.days * 24 + time_left.seconds // 3600
+    minutes_left = (time_left.seconds // 60) % 60
+
+    can_be_reviewed = book_can_be_reviewed(book, user.id)
+
+    return schemas.BookDetailed(
+        title=book.title,
+        description=book.description,
+        image_url=book.image_url,
+        author_full_name=f"{book.author.full_name}",
+        hours_left=hours_left,
+        minutes_left=minutes_left,
+        can_be_reviewed=can_be_reviewed,
+    )
+
+
+def book_can_be_reviewed(book: Book, user_id: int) -> bool:
+    if user_id in book.reviews:
+        raise HTTPException(status_code=400, detail="Book already reviewed")
+    return book_in_review_time(book.created_at)
+
+
+def book_in_review_time(created_at: datetime, review_hour_amount: int) -> bool:
+    end_time = created_at + timedelta(hours=review_hour_amount)
+    now = datetime.now()
+    if now > end_time:
+        return True
+    return False
+
+
+def get_books(db: Session, skip: int = 0, limit: int = 100) -> t.List[schemas.Book]:
     return db.query(models.Book).offset(skip).limit(limit).all()
 
 

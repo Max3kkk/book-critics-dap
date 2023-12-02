@@ -4,6 +4,7 @@ from starlette import status
 import typing as t
 
 from app.db import models, schemas
+from db.crud.book_crud import book_can_be_reviewed
 
 
 def get_review(db: Session, review_id: int):
@@ -13,24 +14,43 @@ def get_review(db: Session, review_id: int):
     return review
 
 
-def get_reviews(
-    db: Session, skip: int = 0, limit: int = 100
-) -> t.List[schemas.ReviewOut]:
+def get_reviews(db: Session, skip: int = 0, limit: int = 100) -> t.List[schemas.Review]:
     return db.query(models.Review).offset(skip).limit(limit).all()
 
 
-def create_review(db: Session, review: schemas.ReviewCreate):
-    # Check if the user exists
-    user = (
-        db.query(models.User).filter(models.User.id == review.user_created_id).first()
+def get_book_review_list(
+    db: Session, book_id: int, user_id: int, skip: int = 0, limit: int = 100
+) -> t.List[schemas.BookReview]:
+    book_reviews = (
+        db.query(models.Review)
+        .filter(models.Review.book_id == book_id)
+        .order_by(models.Review.created_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
     )
-    if not user:
-        raise HTTPException(status_code=400, detail="User not found")
+    return [
+        schemas.BookReview(
+            text=review.text,
+            user_email=review.user_created.email,
+            like_amount=len(review.likes),
+            dislike_amount=len(review.dislikes),
+            created_by_current_user=review.user_created_id == user_id,
+        )
+        for review in book_reviews
+    ]
 
+
+def create_review(db: Session, review: schemas.ReviewCreate, user_id: int):
     # Check if the book exists
     book = db.query(models.Book).filter(models.Book.id == review.book_id).first()
     if not book:
         raise HTTPException(status_code=400, detail="Book not found")
+
+    if not book_can_be_reviewed(book, user_id):
+        raise HTTPException(
+            status_code=400, detail="The book cannot be reviewed at this time"
+        )
 
     db_review = models.Review(
         text=review.text, user_created_id=review.user_created_id, book_id=review.book_id

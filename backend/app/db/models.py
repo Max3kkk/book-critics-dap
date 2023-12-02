@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import (
     Column,
     ForeignKey,
@@ -6,6 +8,7 @@ from sqlalchemy import (
     Boolean,
     PrimaryKeyConstraint,
     Text,
+    DateTime,
 )
 from sqlalchemy.orm import relationship
 
@@ -46,7 +49,9 @@ class Book(Base):
     title = Column(String, nullable=False)
     description = Column(Text, nullable=False)
     image_url = Column(String, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     author_id = Column(Integer, ForeignKey("author.id"))
+    review_hour_amount = Column(Integer, nullable=False)
 
     author = relationship("Author", back_populates="books")
     reviews = cascade_relationship("Review", back_populates="book")
@@ -57,6 +62,7 @@ class Review(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     text = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     user_created_id = Column(Integer, ForeignKey("user.id"))
     book_id = Column(Integer, ForeignKey("book.id"))
 

@@ -19,6 +19,7 @@ from .book_crud import (
     edit_book,
     delete_book,
     get_book,
+    get_detailed_book,
 )
 from .review_crud import (
     get_reviews,

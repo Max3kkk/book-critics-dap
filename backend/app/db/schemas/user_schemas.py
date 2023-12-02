@@ -9,10 +9,6 @@ class UserBase(BaseModel):
     last_name: str = None
 
 
-class UserOut(UserBase):
-    pass
-
-
 class UserCreate(UserBase):
     password: str
 

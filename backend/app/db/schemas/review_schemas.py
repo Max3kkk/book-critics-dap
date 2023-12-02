@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel, Field
 
 
@@ -16,10 +18,15 @@ class ReviewCreate(ReviewBase):
 
 class Review(ReviewBase):
     id: int
+    created_at: datetime
 
     class Config:
         orm_mode = True
 
 
-class ReviewOut(ReviewBase):
-    pass
+class BookReview(BaseModel):
+    text: str
+    user_email: str
+    like_amount: int
+    dislike_amount: int
+    created_by_current_user: bool = False

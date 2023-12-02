@@ -17,7 +17,3 @@ class Author(AuthorBase):
 
     class Config:
         orm_mode = True
-
-
-class AuthorOut(AuthorBase):
-    pass
