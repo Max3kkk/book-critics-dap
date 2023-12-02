@@ -8,8 +8,6 @@ import {
   AuthorList, AuthorEdit, AuthorCreate,
   BookList, BookEdit, BookCreate,
   ReviewList, ReviewEdit, ReviewCreate,
-  LikeList, LikeEdit, LikeCreate,
-  DislikeList, DislikeEdit, DislikeCreate
 } from './Models';
 
 const httpClient = (url: string, options: Record<string, any> = {}) => {
@@ -26,16 +24,10 @@ const dataProvider = simpleRestProvider('api/v1', httpClient);
 export const Admin: React.FC = () => {
   return (
     <ReactAdmin dataProvider={dataProvider} authProvider={authProvider}>
-      
-        {/* <> */}
-          <Resource name="users" list={UserList} edit={UserEdit} create={UserCreate} />
-          <Resource name="authors" list={AuthorList} edit={AuthorEdit} create={AuthorCreate} />
-          <Resource name="books" list={BookList} edit={BookEdit} create={BookCreate} />
-          <Resource name="reviews" list={ReviewList} edit={ReviewEdit} create={ReviewCreate} />
-          <Resource name="likes" list={LikeList} edit={LikeEdit} create={LikeCreate} />
-          <Resource name="dislikes" list={DislikeList} edit={DislikeEdit} create={DislikeCreate} />
-        {/* </> */}
-      {/* )} */}
+      <Resource name="users" list={UserList} edit={UserEdit} create={UserCreate} />
+      <Resource name="authors" list={AuthorList} edit={AuthorEdit} create={AuthorCreate} />
+      <Resource name="books" list={BookList} edit={BookEdit} create={BookCreate} />
+      <Resource name="reviews" list={ReviewList} edit={ReviewEdit} create={ReviewCreate} />
     </ReactAdmin>
   );
 };

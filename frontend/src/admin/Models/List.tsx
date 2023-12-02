@@ -56,25 +56,3 @@ export const ReviewList: FC = (props) => (
     </Datagrid>
   </List>
 );
-
-export const LikeList: FC = (props) => (
-  <List {...props}>
-    <Datagrid rowClick="edit">
-      <TextField source="id" />
-      <TextField source="user_id" />
-      <TextField source="review_id" />
-      <EditButton />
-    </Datagrid>
-  </List>
-);
-
-export const DislikeList: FC = (props) => (
-  <List {...props}>
-    <Datagrid rowClick="edit">
-      <TextField source="id" />
-      <TextField source="user_id" />
-      <TextField source="review_id" />
-      <EditButton />
-    </Datagrid>
-  </List>
-);

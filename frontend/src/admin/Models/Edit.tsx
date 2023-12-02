@@ -51,23 +51,3 @@ export const ReviewEdit: FC = (props) => (
     </SimpleForm>
   </Edit>
 );
-
-export const LikeEdit: FC = (props) => (
-  <Edit {...props}>
-    <SimpleForm>
-      <TextInput disabled source="id" />
-      <TextInput source="user_id" />
-      <TextInput source="review_id" />
-    </SimpleForm>
-  </Edit>
-);
-
-export const DislikeEdit: FC = (props) => (
-  <Edit {...props}>
-    <SimpleForm>
-      <TextInput disabled source="id" />
-      <TextInput source="user_id" />
-      <TextInput source="review_id" />
-    </SimpleForm>
-  </Edit>
-);
