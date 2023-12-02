@@ -1,14 +1,18 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { fetchUtils, Admin as ReactAdmin, Resource } from 'react-admin';
 import simpleRestProvider from 'ra-data-simple-rest';
 import authProvider from './authProvider';
 
-import { UserList, UserEdit, UserCreate } from './Users';
+import {
+  UserList, UserEdit, UserCreate,
+  AuthorList, AuthorEdit, AuthorCreate,
+  BookList, BookEdit, BookCreate,
+  ReviewList, ReviewEdit, ReviewCreate,
+  LikeList, LikeEdit, LikeCreate,
+  DislikeList, DislikeEdit, DislikeCreate
+} from './Models';
 
-const httpClient = (url: any, options: any) => {
-  if (!options) {
-    options = {};
-  }
+const httpClient = (url: string, options: Record<string, any> = {}) => {
   if (!options.headers) {
     options.headers = new Headers({ Accept: 'application/json' });
   }
@@ -19,19 +23,19 @@ const httpClient = (url: any, options: any) => {
 
 const dataProvider = simpleRestProvider('api/v1', httpClient);
 
-export const Admin: FC = () => {
+export const Admin: React.FC = () => {
   return (
     <ReactAdmin dataProvider={dataProvider} authProvider={authProvider}>
-      {(permissions: 'admin' | 'user') => [
-        permissions === 'admin' ? (
-          <Resource
-            name="users"
-            list={UserList}
-            edit={UserEdit}
-            create={UserCreate}
-          />
-        ) : null,
-      ]}
+      
+        {/* <> */}
+          <Resource name="users" list={UserList} edit={UserEdit} create={UserCreate} />
+          <Resource name="authors" list={AuthorList} edit={AuthorEdit} create={AuthorCreate} />
+          <Resource name="books" list={BookList} edit={BookEdit} create={BookCreate} />
+          <Resource name="reviews" list={ReviewList} edit={ReviewEdit} create={ReviewCreate} />
+          <Resource name="likes" list={LikeList} edit={LikeEdit} create={LikeCreate} />
+          <Resource name="dislikes" list={DislikeList} edit={DislikeEdit} create={DislikeCreate} />
+        {/* </> */}
+      {/* )} */}
     </ReactAdmin>
   );
 };

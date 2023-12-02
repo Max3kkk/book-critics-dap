@@ -164,3 +164,9 @@ node_modules/
 
 # vscode
 .vscode/
+
+# pycharm
+.idea/
+
+# ganache
+ganache_data
