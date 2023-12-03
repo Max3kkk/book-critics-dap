@@ -79,6 +79,7 @@ def create_book(db: Session, book: schemas.BookCreate):
         description=book.description,
         image_url=book.image_url,
         author_id=book.author_id,
+        review_hour_amount=book.review_hour_amount,
     )
     db.add(db_book)
     db.commit()
