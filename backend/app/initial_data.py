@@ -41,7 +41,7 @@ def create_fake_data(
             UserCreate(
                 email=fake.email(),
                 password=fake.password(),
-                is_superuser=random.choice([True, False]),
+                is_superuser=False,
             ),
         )
 
