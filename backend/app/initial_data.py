@@ -30,6 +30,10 @@ def create_fake_data(
     num_likes=50,
     num_dislikes=20,
 ):
+    # Create admin user
+    create_user(
+        db, UserCreate(email="admin@admin.com", password="admin", is_superuser=True)
+    )
     # Create users
     for _ in range(num_users):
         create_user(
