@@ -11,3 +11,5 @@ const WithdrawTokens = ({ account, contract }) => {
         </div>
     );
 };
+
+export default WithdrawTokens;

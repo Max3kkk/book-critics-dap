@@ -7,10 +7,10 @@ import Footer from "./components/Footer";
 import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
 import BookReviewSystem from './contracts/BookReviewSystem.json';
-import SubmitReview from './components/Demo/SubmitReview.jsx';
-import CheckBalance from './components/Demo/CheckBalance.jsx';
-import WithdrawTokens from './components/Demo/WithdrawTokens.jsx';
-import UpdateRewardAmount from './components/Demo/UpdateRewardAmount.jsx';
+import SubmitReview from './components/Demo/SubmitReview';
+import CheckBalance from './components/Demo/CheckBalance';
+import WithdrawTokens from './components/Demo/WithdrawTokens';
+import UpdateRewardAmount from './components/Demo/UpdateRewardAmount';
 
 const App = () => {
   const [account, setAccount] = useState('');

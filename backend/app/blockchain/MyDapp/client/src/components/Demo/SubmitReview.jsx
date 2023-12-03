@@ -31,3 +31,5 @@ const SubmitReview = ({ account }) => {
         </div>
     );
 };
+
+export default SubmitReview;

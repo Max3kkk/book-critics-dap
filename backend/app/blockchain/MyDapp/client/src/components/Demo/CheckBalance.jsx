@@ -17,3 +17,5 @@ const CheckBalance = ({ account, contract }) => {
         </div>
     );
 };
+
+export default CheckBalance;

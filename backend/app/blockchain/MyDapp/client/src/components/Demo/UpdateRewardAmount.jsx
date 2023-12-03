@@ -14,3 +14,5 @@ const UpdateRewardAmount = ({ account, contract }) => {
         </div>
     );
 };
+
+export default UpdateRewardAmount;
