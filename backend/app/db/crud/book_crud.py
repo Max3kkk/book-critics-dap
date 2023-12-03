@@ -44,13 +44,13 @@ def get_detailed_book(db: Session, book_id: int, user: User) -> schemas.BookDeta
 def book_can_be_reviewed(book: Book, user_id: int) -> bool:
     if user_id in book.reviews:
         raise HTTPException(status_code=400, detail="Book already reviewed")
-    return book_in_review_time(book.created_at)
+    return book_in_review_time(book.created_at, book.review_hour_amount)
 
 
 def book_in_review_time(created_at: datetime, review_hour_amount: int) -> bool:
     end_time = created_at + timedelta(hours=review_hour_amount)
     now = datetime.now()
-    if now > end_time:
+    if now < end_time:
         return True
     return False
 
