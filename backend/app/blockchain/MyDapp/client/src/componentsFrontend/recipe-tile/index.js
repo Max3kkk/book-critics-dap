@@ -1,8 +1,11 @@
 import React from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import BookDetail from "../BookDetail";
 
-export default function BookTile({ book }) {
+
+export function BookTile({ book }) {
     const navigate = useNavigate();
 
     const handleTileClick = () => {
@@ -20,3 +23,5 @@ export default function BookTile({ book }) {
         )
     );
 }
+
+export default BookTile;

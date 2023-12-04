@@ -1,11 +1,3 @@
-.app {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 24px;
-}
-
 .app__searchForm {
   margin-top: 18px;
 }
@@ -45,3 +37,36 @@
   grid-template-columns: 220px 220px;
   align-items: baseline;
 }
+
+
+/* Keep your existing styles, and add Bootstrap classes as needed */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 24px;
+}
+
+/* Update for book tiles to use Bootstrap grid system */
+.app__books {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Responsive grid */
+  gap: 15px; /* Spacing between grid items */
+}
+
+/* Styles for the header */
+.app__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Adjustments for responsiveness */
+@media (max-width: 768px) {
+  .app__books {
+    grid-template-columns: 1fr; /* Single column on smaller screens */
+  }
+}
+
+

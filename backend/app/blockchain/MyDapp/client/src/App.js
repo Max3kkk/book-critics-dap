@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import "./app.css";
 import Web3 from 'web3';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import BookCriticsPlatform from "./contracts/BookCriticsPlatform.json";
 import BookTile from "./componentsFrontend/recipe-tile"; // Make sure this component is updated to handle the new book format
 import BookDetail from './componentsFrontend/BookDetail'; // Import the BookDetail component
@@ -77,3 +78,5 @@ function App() {
 }
 
 export default App;
+
+

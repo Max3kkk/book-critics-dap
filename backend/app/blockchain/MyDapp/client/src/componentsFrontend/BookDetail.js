@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import "./style.css";
 import BookTile from './recipe-tile'; // Adjust the path as needed
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function BookDetail() {
     const [book, setBook] = useState(null);
