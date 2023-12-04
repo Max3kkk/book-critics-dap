@@ -16,7 +16,7 @@ from app.db.schemas import (
     BookCreate,
     ReviewCreate,
 )
-from app.db.session import SessionLocal
+from app.db.session import SessionLocal, Base, engine
 
 fake = Faker()
 
@@ -34,6 +34,7 @@ def create_fake_data(
     create_user(
         db, UserCreate(email="admin@admin.com", password="admin", is_superuser=True)
     )
+
     # Create users
     for _ in range(num_users):
         create_user(
@@ -107,6 +108,9 @@ def create_fake_data(
 def init():
     db = SessionLocal()
     # Clear existing data from all tables
+    Base.metadata.drop_all(bind=engine)
+    # Create all tables
+    Base.metadata.create_all(bind=engine)
     # Add code to clear data if needed
 
     create_fake_data(db)
