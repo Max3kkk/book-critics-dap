@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import BookReviewSystem from '../../contracts/BookReviewSystem.json';
+import BookReviewToken from '../../contracts/BookReviewToken.json';
 import Web3 from 'web3';
 
 const SubmitReview = ({ account }) => {
@@ -10,9 +10,9 @@ const SubmitReview = ({ account }) => {
     useEffect(() => {
         const initContract = async () => {
             const networkId = await web3.eth.net.getId();
-            const deployedNetwork = BookReviewSystem.networks[networkId];
+            const deployedNetwork = BookReviewToken.networks[networkId];
             const instance = new web3.eth.Contract(
-                BookReviewSystem.abi,
+                BookReviewToken.abi,
                 deployedNetwork && deployedNetwork.address,
             );
             setContract(instance);
@@ -22,7 +22,7 @@ const SubmitReview = ({ account }) => {
 
     // Function to submit a review
     const handleSubmitReview = async () => {
-        await contract.methods.submitReview().send({ from: account });
+        await contract.methods.rewardForReview(0, account).send({ from: account });
     };
 
     return (

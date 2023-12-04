@@ -5,7 +5,7 @@ const CheckBalance = ({ account, contract }) => {
 
     useEffect(() => {
         const getBalance = async () => {
-            const result = await contract.methods.checkBalance(account).call();
+            const result = await contract.methods.balanceOf(account).call();
             setBalance(result);
         };
         getBalance();
