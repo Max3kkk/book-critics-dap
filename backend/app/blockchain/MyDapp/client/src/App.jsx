@@ -38,11 +38,17 @@ const App = () => {
   return (
     <div>
       <h1>Book Review System</h1>
-      <p>Connected Account: {account}</p>
-      <SubmitReview account={account} contract={contract} />
-      <CheckBalance account={account} contract={contract} />
-      <WithdrawTokens account={account} contract={contract} />
-      <UpdateRewardAmount account={account} contract={contract} />
+	  {!contract ? (
+        <p>Loading contract...</p>
+      ) : (
+        <>
+          <p>Connected Account: {account}</p>
+          <SubmitReview account={account} contract={contract} />
+          <CheckBalance account={account} contract={contract} />
+          <WithdrawTokens account={account} contract={contract} />
+          <UpdateRewardAmount account={account} contract={contract} />
+        </>
+      )}
     </div>
   );
 };

@@ -43,8 +43,6 @@ contract BookReviewSystem {
 
     // Submit a review
     function submitReview() public {
-        require(reviews[msg.sender].timestamp == 0, "Review already submitted");
-
         reviews[msg.sender] = Review({
             timestamp: block.timestamp,
             tokens: rewardAmount,
