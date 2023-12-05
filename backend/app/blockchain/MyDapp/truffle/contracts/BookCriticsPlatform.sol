@@ -1,10 +1,4 @@
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-import "./BookCriticsToken.sol";
-
-
-contract BookCriticsPlatform {
+contract BookCriticsPlatform is Ownable {
     BookCriticsToken public token;
 
     struct Book {
@@ -30,21 +24,21 @@ contract BookCriticsPlatform {
     uint256 public rewardPerVote = 1 * (10 ** 18);
     uint256 public stakingRewardRate = 8; // Percentage rate per year
 
-    constructor(address tokenAddress) {
+    constructor(address tokenAddress) Ownable(msg.sender) {
         token = BookCriticsToken(tokenAddress);
     }
 
     // Owner functions
-    function addBook(string memory title, string memory author, string memory cover) public {
+    function addBook(string memory title, string memory author, string memory cover) public onlyOwner {
         books.push(Book(books.length, title, author, cover, 0));
     }
 
-    function setRewards(uint256 reviewReward, uint256 voteReward) public {
+    function setRewards(uint256 reviewReward, uint256 voteReward) public onlyOwner {
         rewardPerReview = reviewReward;
         rewardPerVote = voteReward;
     }
 
-    function setStakingRewardRate(uint256 rate) public {
+    function setStakingRewardRate(uint256 rate) public onlyOwner {
         stakingRewardRate = rate;
     }
 
